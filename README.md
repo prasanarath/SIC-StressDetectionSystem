@@ -1,4 +1,5 @@
-# Stress Detection Web App - Model Improvement Documentation
+# Stress Detection Web App 
+<img width="1914" height="914" alt="image" src="https://github.com/user-attachments/assets/e4da92bc-4dd1-4dc6-8f88-59f213c3846e" />
 
 ## 📊 Project Overview
 
@@ -287,5 +288,6 @@ curl http://localhost:5000/model_info
 The improved stress detection model represents a significant advancement in accuracy and reliability. By implementing advanced feature engineering, robust preprocessing, and ensemble learning, we achieved perfect classification performance. The system is now ready for real-world deployment with confidence in its predictive capabilities.
 
 ---
+
 
 **Model Performance Summary**: 100% accuracy with 14 engineered features using Random Forest classifier and RobustScaler preprocessing.
