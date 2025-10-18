@@ -1,4 +1,3 @@
-# SIC-StressDetectionSystem
 # Samsung Innovation Campus - Stress Detection Web App
 
 ## 📌 Project Overview
