@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stress Detection App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-text">
+                    <h1><i class="fas fa-heartbeat"></i> Stress Detection System</h1>
+                    <p>Monitor your stress levels with advanced biometric analysis</p>
+                </div>
+                <div class="dark-mode-toggle">
+                    <button id="darkModeToggle" class="toggle-btn" title="Toggle Dark Mode">
+                        <i class="fas fa-moon" id="toggleIcon"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <!-- Input Section -->
+            <div class="input-section">
+                <div class="input-card">
+                    <h2><i class="fas fa-edit"></i> Biometric Data Input</h2>
+                    
+                    <form id="stressForm" class="input-form">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label for="HR">Heart Rate (BPM)</label>
+                                <input type="number" id="HR" name="HR" placeholder="e.g., 75" min="40" max="200" step="0.1">
+                            </div>
+                            <div class="input-group">
+                                <label for="EDA">Electrodermal Activity</label>
+                                <input type="number" id="EDA" name="EDA" placeholder="e.g., 0.5" min="0" max="2" step="0.01">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label for="TEMP">Temperature (°C)</label>
+                                <input type="number" id="TEMP" name="TEMP" placeholder="e.g., 36.5" min="35" max="40" step="0.1">
+                            </div>
+                            <div class="input-group">
+                                <label for="BVP">Blood Volume Pulse</label>
+                                <input type="number" id="BVP" name="BVP" placeholder="e.g., 0.8" min="0" max="1" step="0.01">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label for="ACC_X">Acceleration X</label>
+                                <input type="number" id="ACC_X" name="ACC_X" placeholder="e.g., 0.05" min="-1" max="1" step="0.01">
+                            </div>
+                            <div class="input-group">
+                                <label for="ACC_Y">Acceleration Y</label>
+                                <input type="number" id="ACC_Y" name="ACC_Y" placeholder="e.g., -0.02" min="-1" max="1" step="0.01">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label for="ACC_Z">Acceleration Z</label>
+                                <input type="number" id="ACC_Z" name="ACC_Z" placeholder="e.g., 0.01" min="-1" max="1" step="0.01">
+                            </div>
+                            <div class="input-group">
+                                <label for="IBI">Inter-Beat Interval</label>
+                                <input type="number" id="IBI" name="IBI" placeholder="e.g., 0.85" min="0" max="1" step="0.01">
+                            </div>
+                        </div>
+
+                        <div class="button-group">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-brain"></i> Analyze Stress Level
+                            </button>
+                            <button type="button" id="randomBtn" class="btn btn-secondary">
+                                <i class="fas fa-dice"></i> Generate Random Sample
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section">
+                <!-- Smart Watch Interface -->
+                <div class="watch-container">
+                    <div class="smartwatch" id="smartwatch">
+                        <div class="watch-face">
+                            <div class="watch-screen">
+                                <div class="heart-icon" id="heartIcon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <div class="status-text" id="statusText">Waiting for input</div>
+                                <div class="confidence-text" id="confidenceText"></div>
+                            </div>
+                        </div>
+                        <div class="watch-band"></div>
+                    </div>
+                </div>
+
+                <!-- Result Card -->
+                <div class="result-card" id="resultCard" style="display: none;">
+                    <div class="result-header">
+                        <h3><i class="fas fa-chart-line"></i> Analysis Result</h3>
+                    </div>
+                    <div class="result-content">
+                        <div class="result-status" id="resultStatus"></div>
+                        <div class="result-confidence" id="resultConfidence"></div>
+                    </div>
+                </div>
+
+                <!-- Suggestions Section -->
+                <div class="suggestions-card" id="suggestionsCard" style="display: none;">
+                    <div class="suggestions-header">
+                        <h3><i class="fas fa-lightbulb"></i> Personalized Recommendations</h3>
+                    </div>
+                    <div class="suggestions-content" id="suggestionsContent">
+                        <!-- Suggestions will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Analyzing your biometric data...</p>
+            </div>
+        </div>
+
+        <!-- Virtual Pet Therapist -->
+        <div class="pet-therapist-overlay" id="petTherapist" style="display: none;">
+            <div class="pet-container">
+                <button class="pet-close-btn" id="petCloseBtn" title="Close Pet Therapist">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="pet-avatar">
+                    <div class="pet-emoji" id="petEmoji">🐶</div>
+                </div>
+                <div class="pet-speech-bubble">
+                    <div class="pet-message" id="petMessage">Don't worry, I got your back! 🐾</div>
+                </div>
+                <div class="pet-name">Dr. Fluffy</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
