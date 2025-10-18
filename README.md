@@ -111,7 +111,7 @@ The goal is to provide **real-time stress detection**, assist in **stress manage
 
 | Metric | Original | Improved | Improvement |
 |--------|---------|----------|-------------|
-| Accuracy | 89% | 98% | +11% |
+| Accuracy | 89% | 98% | +10% |
 | Features | 8 | 14 | +75% |
 | Algorithms Tested | 1 | 4 | +300% |
 | Cross-Validation | No | Yes | +∞ |
@@ -122,3 +122,15 @@ The goal is to provide **real-time stress detection**, assist in **stress manage
 ## 🔧 Technical Implementation
 
 ### File Structure
+├── app.py
+├── improved_app.py
+├── train_model.ipynb
+├── improved_train_model.ipynb
+├── improved_stress_model.pkl
+├── improved_scaler.pkl
+├── feature_info.pkl
+├── logistic_stress_model.pkl
+├── scaler.pkl
+├── Datasets.csv
+└── templates/
+└── index.html
